@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <title>student form</title>
+</head>
+<body>
+
+    <div class="container mt-4">
+        <div class="jumbotron">
+            <h1 class="display-4">Enter name and score</h1>
+            <hr class="my-4">
+            <form onsubmit="return store()">
+                <label for="name">name:</label><br>
+                <input type="text" id="name" name="name"><br>
+                <label for="score">score:</label><br>
+                <input type="text" id="score" name="score"><br><br>
+                <input type="submit" value="Store in DB">
+                <p id="user-confirmation">
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <script>
+
+        function store ()
+        {
+            if(!isNaN(str))
+            {
+                const xhttp = new XMLHttpRequest()
+                const score = parseInt(str)
+                xhttp.open("POST", `/?name=${name}&score=${score}`,true)
+                xhttp.send()
+                xhttp.onreadystatechange = function()
+                {
+                    if(this.readyState == 4 && this.status == 200)
+                    {
+                        document.getElementById("user-confirmation").innerHTML = 
+                            this.responseText
+                    }
+                }
+            }
+            else
+            {
+                document.getElementById("user-confirmation").innerHTML =
+                    "Please enter a number for the score"
+            }
+            
+        }
+    </script>
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
